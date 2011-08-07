@@ -19,12 +19,12 @@ Simple
 </pre>
 ### HTML code ###
 <pre>
-<div data-fn="show" data-type="bind">Open dialog
-	<ul class="dialog" data-fn="alertSS" data-selector=">li" data-type="delegate">
-		<li data-ss="data1">button1</li>
-		<li data-ss="data2">button2</li>
-	</ul>
-</div>
+&lt;div data-fn="show" data-type="bind"&gt;Open dialog
+	&lt;ul class="dialog" data-fn="alertSS" data-selector="&gt;li" data-type="delegate"&gt;
+		&lt;li data-ss="data1"&gt;button1&lt;/li&gt;
+		&lt;li data-ss="data2"&gt;button2&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
 </pre>
 
 ### JS Exapmple ###
@@ -48,12 +48,12 @@ Several delegates
 
 ### HTML code ###
 <pre>
-<div data-fn="show" data-type="bind">Open dialog
-	<ul class="dialog" data-pref="one,two" data-fn_one="alertSS1" data-selector_one=">li" data-type_one="delegate" data-fn_two="alertSS2" data-selector_two=">li"  data-type_two="delegate">
-		<li data-ss="data1">button1</li>
-		<li data-ss="data2">button2</li>
-	</ul>
-</div>
+&lt;div data-fn="show" data-type="bind"&gt;Open dialog
+	&lt;ul class="dialog" data-pref="one,two" data-fn_one="alertSS1" data-selector_one="&gt;li" data-type_one="delegate" data-fn_two="alertSS2" data-selector_two="&gt;li"  data-type_two="delegate"&gt;
+		&lt;li data-ss="data1"&gt;button1&lt;/li&gt;
+		&lt;li data-ss="data2"&gt;button2&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
 </pre>
 
 ### JS Exapmple ###
