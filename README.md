@@ -2,6 +2,7 @@ Simple
 ======
 
 ### CSS Style ###
+<pre>
 .dialog
 {
 	display: none;
@@ -15,7 +16,7 @@ Simple
 	padding-left: 4px;
 	color: #000;	
 }
-
+</pre>
 ### HTML code ###
 <pre>
 <div data-fn="show" data-type="bind">Open dialog
@@ -27,6 +28,7 @@ Simple
 </pre>
 
 ### JS Exapmple ###
+<pre>
 var model = {
 	this.show = function(e){
 		var $el = $(this);
@@ -40,21 +42,22 @@ var model = {
 	}
 }
 $.observable(model);
-
+</pre>
 Several delegates
 =================
 
 ### HTML code ###
-<code>
+<pre>
 <div data-fn="show" data-type="bind">Open dialog
 	<ul class="dialog" data-pref="one,two" data-fn_one="alertSS1" data-selector_one=">li" data-type_one="delegate" data-fn_two="alertSS2" data-selector_two=">li"  data-type_two="delegate">
 		<li data-ss="data1">button1</li>
 		<li data-ss="data2">button2</li>
 	</ul>
 </div>
-</code>
+</pre>
 
 ### JS Exapmple ###
+<pre>
 var model = {
 	this.show = function(e){
 		var $el = $(this);
@@ -72,3 +75,4 @@ var model = {
 	}
 }
 $.observable(model);
+</pre>
