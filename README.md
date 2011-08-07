@@ -1,10 +1,7 @@
 Simple
 ======
 
-CSS Style
----------
-
-<pre>
+### CSS Style ###
 .dialog
 {
 	display: none;
@@ -18,11 +15,8 @@ CSS Style
 	padding-left: 4px;
 	color: #000;	
 }
-</pre>
 
-HTML code
----------
-
+### HTML code ###
 <pre>
 <div data-fn="show" data-type="bind">Open dialog
 	<ul class="dialog" data-fn="alertSS" data-selector=">li" data-type="delegate">
@@ -32,9 +26,7 @@ HTML code
 </div>
 </pre>
 
-JS Exapmple
------------
-
+### JS Exapmple ###
 var model = {
 	this.show = function(e){
 		var $el = $(this);
@@ -42,33 +34,27 @@ var model = {
 		panel.css({ top: $el.position().top, left: $el.position().left + $el.width() });
 		panel.toggle();
 	}
-
 	this.alertSS = function(e){
 		e.stopPropagation();
 		alert($(this).data('ss'));
 	}
 }
-
 $.observable(model);
 
 Several delegates
 =================
 
-HTML code
----------
-
-<pre>
+### HTML code ###
+<code>
 <div data-fn="show" data-type="bind">Open dialog
 	<ul class="dialog" data-pref="one,two" data-fn_one="alertSS1" data-selector_one=">li" data-type_one="delegate" data-fn_two="alertSS2" data-selector_two=">li"  data-type_two="delegate">
 		<li data-ss="data1">button1</li>
 		<li data-ss="data2">button2</li>
 	</ul>
 </div>
-</pre>
+</code>
 
-JS Exapmple
------------
-
+### JS Exapmple ###
 var model = {
 	this.show = function(e){
 		var $el = $(this);
@@ -76,16 +62,13 @@ var model = {
 		panel.css({ top: $el.position().top, left: $el.position().left + $el.width() });
 		panel.toggle();
 	}
-
 	this.alertSS1 = function(e){
 		e.stopPropagation();
 		alert($(this).data('ss') + 'by one');
 	}
-
 	this.alertSS2 = function(e){
 		e.stopPropagation();
 		alert($(this).data('ss') + 'by two');
 	}
 }
-
 $.observable(model);
