@@ -1,5 +1,10 @@
+Simple
+======
+
 CSS Style
-<code>
+---------
+
+<pre>
 .dialog
 {
 	display: none;
@@ -13,20 +18,23 @@ CSS Style
 	padding-left: 4px;
 	color: #000;	
 }
-</code>
+</pre>
 
 HTML code
-<code>
+---------
+
+<pre>
 <div data-fn="show" data-type="bind">Open dialog
 	<ul class="dialog" data-fn="alertSS" data-selector=">li" data-type="delegate">
 		<li data-ss="data1">button1</li>
 		<li data-ss="data2">button2</li>
 	</ul>
 </div>
-</code>
+</pre>
 
 JS Exapmple
-<code>
+-----------
+
 var model = {
 	this.show = function(e){
 		var $el = $(this);
@@ -42,22 +50,25 @@ var model = {
 }
 
 $.observable(model);
-</code>
 
-Several delegates:
+Several delegates
+=================
 
 HTML code
-<code>
+---------
+
+<pre>
 <div data-fn="show" data-type="bind">Open dialog
 	<ul class="dialog" data-pref="one,two" data-fn_one="alertSS1" data-selector_one=">li" data-type_one="delegate" data-fn_two="alertSS2" data-selector_two=">li"  data-type_two="delegate">
 		<li data-ss="data1">button1</li>
 		<li data-ss="data2">button2</li>
 	</ul>
 </div>
-</code>
+</pre>
 
 JS Exapmple
-<code>
+-----------
+
 var model = {
 	this.show = function(e){
 		var $el = $(this);
@@ -78,4 +89,3 @@ var model = {
 }
 
 $.observable(model);
-</code>
