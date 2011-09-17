@@ -37,36 +37,55 @@
 				}
 			});
 		} else {
-			if (map['data-pref']) {
-				var pref = map['data-pref'].split(',');
+			if (map['data-pref'] || map['data-fn']) {
+				if (map['data-pref']) {
+					var pref = map['data-pref'].split(',');
+					for (var i = 0; i < pref.length; i++) {
+						pref[i] = '-' + pref[i];
+					}
+				} else {
+					var pref = [''];
+				}
 				for (var i = 0; i < pref.length; i++) {
-					pref[i] = '-' + pref[i];
+					map['data-type' + pref[i]] = map['data-type' + pref[i]] || defType;
+					table[map['data-fn' + pref[i]] + ',' + map['data-event' + pref[i]]] = {
+						fn: map['data-fn' + pref[i]],
+						event: map['data-event' + pref[i]],
+						selector: map['data-selector' + pref[i]] ? map['data-selector' + pref[i]] : '[data-fn="' + map['data-fn' + pref[i]] + '"][data-event="' + map['data-event' + pref[i]] + '"]',
+						type: map['data-type' + pref[i]],
+						scope: map['data-scope' + pref[i]]
+					};
 				}
 			} else {
-				var pref = [''];
-			}
-			for (var i = 0; i < pref.length; i++) {
-				map['data-type' + pref[i]] = map['data-type' + pref[i]] || defType;
-				table[map['data-fn' + pref[i]] + ',' + map['data-event' + pref[i]]] = {
-					fn: map['data-fn' + pref[i]],
-					event: map['data-event' + pref[i]],
-					selector: map['data-selector' + pref[i]] ? map['data-selector' + pref[i]] : '[data-fn="' + map['data-fn' + pref[i]] + '"][data-event="' + map['data-event' + pref[i]] + '"]',
-					type: map['data-type' + pref[i]],
-					scope: map['data-scope' + pref[i]]
-				};
+				if ($.isPlainObject(map)) {
+					map = [map];
+				}
+				for (var i = 0; i < map.length; i++) {
+					table[(new Date()).getTime() + i] = {
+						fn: map[i].fn,
+						event: map[i].event,
+						selector: map[i].selector ? map[i].selector : '[data-fn="' + map[i].fn + '"][data-event="' + map[i].event + '"]',
+						type: map[i].type,
+						scope: map[i].scope
+					};
+				}
 			}
 		}
 		$.each(table, function () {
 			var fn = scope[this.fn];
 			var bindScope;
 			if (this.scope) {
-				bindScope = scope[this.scope];
-				if (this.scope.indexOf('.') != -1) {
-					var d = this.scope.toString().split(".");
-					var bindScope = scope[d[0]];
-					var v = d.slice(1);
-					for (var i = 0, length = v.length; i < length; i++) {
-						bindScope = bindScope[v[i]];
+				if (this.scope == 'this') {
+					bindScope = scope;
+				} else {
+					bindScope = scope[this.scope];
+					if (this.scope.indexOf('.') != -1) {
+						var d = this.scope.toString().split(".");
+						var bindScope = scope[d[0]];
+						var v = d.slice(1);
+						for (var i = 0, length = v.length; i < length; i++) {
+							bindScope = bindScope[v[i]];
+						}
 					}
 				}
 			}
@@ -84,7 +103,7 @@
 						e.preventDefault();
 						e.stopPropagation();
 						if (!$(this).hasClass('disable')) {
-							fn.call(bindScope || this, e, this);
+							fn.call(bindScope || this, e, this, scope);
 						}
 					});
 				} else if (this.type == 'delegate') {
@@ -92,7 +111,7 @@
 						e.preventDefault();
 						e.stopPropagation();
 						if (!$(this).hasClass('disable')) {
-							fn.call(bindScope || this, e, this);
+							fn.call(bindScope || this, e, this, scope);
 						}
 					});
 				}
