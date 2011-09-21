@@ -1,13 +1,11 @@
-﻿!function() {
+﻿!function($) {
 	function toCamel(str) {
 		return str.replace(/(\-[a-z])/g, function($1) {
 			return $1.toUpperCase().replace('-', '');
 		});
 	}
 
-	$.fn.observable = $.observable = function (scope, map) {
-		var defType = 'delegate';
-
+	$.fn.observable = $.observable = function observable(scope, map) {
 		if (this != $) {
 			var $root = this;
 		} else {
@@ -26,12 +24,11 @@
 					var pref = [''];
 				}
 				for (var i = 0; i < pref.length; i++) {
-					data['type' + pref[i]] = data['type' + pref[i]] || defType;
 					table[data['fn' + pref[i]] + ',' + data['event' + pref[i]]] = {
 						fn: data['fn' + pref[i]],
 						event: data['event' + pref[i]],
 						selector: data['selector' + pref[i]] ? data['selector' + pref[i]] : '[data-fn="' + data['fn' + pref[i]] + '"][data-event="' + data['event' + pref[i]] + '"]',
-						type: data['type' + pref[i]],
+						type: data['type' + pref[i]] || observable.options.type,
 						scope: data['scope' + pref[i]]
 					};
 				}
@@ -47,12 +44,11 @@
 					var pref = [''];
 				}
 				for (var i = 0; i < pref.length; i++) {
-					map['data-type' + pref[i]] = map['data-type' + pref[i]] || defType;
 					table[map['data-fn' + pref[i]] + ',' + map['data-event' + pref[i]]] = {
 						fn: map['data-fn' + pref[i]],
 						event: map['data-event' + pref[i]],
 						selector: map['data-selector' + pref[i]] ? map['data-selector' + pref[i]] : '[data-fn="' + map['data-fn' + pref[i]] + '"][data-event="' + map['data-event' + pref[i]] + '"]',
-						type: map['data-type' + pref[i]],
+						type: map['data-type' + pref[i]] || observable.options.type,
 						scope: map['data-scope' + pref[i]]
 					};
 				}
@@ -65,7 +61,7 @@
 						fn: map[i].fn,
 						event: map[i].event,
 						selector: map[i].selector ? map[i].selector : '[data-fn="' + map[i].fn + '"][data-event="' + map[i].event + '"]',
-						type: map[i].type,
+						type: map[i].type || observable.options.type,
 						scope: map[i].scope
 					};
 				}
@@ -118,4 +114,8 @@
 			}
 		});
 	}
-}();
+
+	$.observable.options = {
+		type: 'delegate'
+	};
+}(jQuery);
