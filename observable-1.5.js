@@ -26,8 +26,8 @@
 				for (var i = 0; i < pref.length; i++) {
 					table[data['fn' + pref[i]] + ',' + data['event' + pref[i]]] = {
 						fn: data['fn' + pref[i]],
-						event: data['event' + pref[i]],
-						selector: data['selector' + pref[i]] ? data['selector' + pref[i]] : '[data-fn="' + data['fn' + pref[i]] + '"][data-event="' + data['event' + pref[i]] + '"]',
+						event: data['event' + pref[i]] || 'click',
+						selector: data['selector' + pref[i]] ? data['selector' + pref[i]] : '[data-fn="' + data['fn' + pref[i]] + '"]' + (data['event' + pref[i]] ? '[data-event="' + data['event' + pref[i]] + '"]' : ':not([data-event])'),
 						type: data['type' + pref[i]] || observable.options.type,
 						scope: data['scope' + pref[i]]
 					};
@@ -46,8 +46,8 @@
 				for (var i = 0; i < pref.length; i++) {
 					table[map['data-fn' + pref[i]] + ',' + map['data-event' + pref[i]]] = {
 						fn: map['data-fn' + pref[i]],
-						event: map['data-event' + pref[i]],
-						selector: map['data-selector' + pref[i]] ? map['data-selector' + pref[i]] : '[data-fn="' + map['data-fn' + pref[i]] + '"][data-event="' + map['data-event' + pref[i]] + '"]',
+						event: map['data-event' + pref[i]] || 'click',
+						selector: map['data-selector' + pref[i]] ? map['data-selector' + pref[i]] : '[data-fn="' + map['data-fn' + pref[i]] + '"]' + (map['data-event' + pref[i]] ? '[data-event="' + map['data-event' + pref[i]] + '"]' : ':not([data-event])'),
 						type: map['data-type' + pref[i]] || observable.options.type,
 						scope: map['data-scope' + pref[i]]
 					};
@@ -59,8 +59,8 @@
 				for (var i = 0; i < map.length; i++) {
 					table[(new Date()).getTime() + i] = {
 						fn: map[i].fn,
-						event: map[i].event,
-						selector: map[i].selector ? map[i].selector : '[data-fn="' + map[i].fn + '"][data-event="' + map[i].event + '"]',
+						event: map[i].event || 'click',
+						selector: map[i].selector ? map[i].selector : '[data-fn="' + map[i].fn + '"]' + (map[i].event ? '[data-event="' + map[i].event + '"]' : ':not([data-event])'),
 						type: map[i].type || observable.options.type,
 						scope: map[i].scope
 					};
