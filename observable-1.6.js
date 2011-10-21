@@ -96,16 +96,20 @@
 			if ($.isFunction(fn)) {
 				if (this.type == 'bind') {
 					$root.find(this.selector).unbind(this.event).bind(this.event, function(e) {
-						e.preventDefault();
-						e.stopPropagation();
+						if (observable.options.notPrevent === false || $.inArray(e.type, observable.options.notPrevent) == -1) {
+							e.preventDefault();
+							e.stopPropagation();
+						}
 						if (!$(this).hasClass('disable')) {
 							fn.call(bindScope || this, e, this, scope);
 						}
 					});
 				} else if (this.type == 'delegate') {
 					$root.undelegate(this.selector, this.event).delegate(this.selector, this.event, function(e) {
-						e.preventDefault();
-						e.stopPropagation();
+						if (observable.options.notPrevent === false || $.inArray(e.type, observable.options.notPrevent) == -1) {
+							e.preventDefault();
+							e.stopPropagation();
+						}
 						if (!$(this).hasClass('disable')) {
 							fn.call(bindScope || this, e, this, scope);
 						}
@@ -116,6 +120,7 @@
 	}
 
 	$.observable.options = {
-		type: 'delegate'
+		type: 'delegate',
+		notPrevent: ['paste', 'keydown', 'keyup', 'keypress']
 	};
 }(jQuery);
